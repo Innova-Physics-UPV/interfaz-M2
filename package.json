@@ -1,0 +1,22 @@
+{
+  "name": "interfaz-m2",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@astrojs/svelte": "^7.2.2",
+    "@tauri-apps/api": "^2.9.0",
+    "astro": "^5.16.0",
+    "svelte": "^5.43.14",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.9.4"
+  }
+}
