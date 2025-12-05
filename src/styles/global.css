@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+
+body{
+    font-family:  'Courier New', Courier, monospace;
+}
+
+body {
+
+    background-color: #49259D;
+    color: #f9fafb;
+
+    /* OPCIÓN C: Gradiente*/
+    /*background: linear-gradient(to right, #ec481b, #4a00e0);/*/
+    /* color: white; */
+}
+
+/* --- 4. CLASES DE UTILIDAD --- */
+
+/* Puedes añadir esto a cualquier <h1> o <h2> para centrarlo */
+.text-center {
+    text-align: center;
+}
+
+/* PRUEBA: Añade esta clase a tus botones para darles estilo rápido */
+.btn-primary {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s; /* Animación suave al pulsar */
+}
+
+.btn-primary:active {
+    transform: scale(0.95); /* Efecto de "apretar" */
+}
+.dashboard-grid {
+    display: grid;
+    /* Definimos 2 columnas y filas automáticas */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* El balance ocupa las 2 columnas de la primera fila */
+.area-balance {
+    grid-column: 1 ;
+}
+
+/* Los otros elementos ocupan 1 celda por defecto */
+.area-top {
+    /* Empieza en la linea 1 y termina en la linea -1 (el final) */
+    grid-column: 1 / -1;
+}
+
+/* Reto 2: La gráfica ocupa 2 de las 3 columnas */
+.area-chart {
+    grid-column: 2/-1; /* "Fusiona" 2 celdas */
+    /* grid-row: span 2;    <-- Descomenta para hacerla más alta */
+}
+.area-controls {
+    grid-column: 1/-1;
+}
