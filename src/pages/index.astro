@@ -1,28 +1,26 @@
 ---
 import Basecard from '../components/Basecard.svelte';
+import Grafica from '../components/Grafica.svelte';
+import Layout from '../layouts/layout.astro';
+
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>INTERFAZ P1</title>
-	</head>
-	<body>
-		<h1>INTERFAZ P1</h1>
-
-		<Basecard >
+<Layout>
+	<div class="M2grid">		
+		<Basecard client:idle>
 		<p> hola <p/>
-		<Basecard />
-
-		<Basecard>
+		</Basecard>
+		<Basecard client:idle>
 		<p>aaaaaaaaacd <p/>
-		<Basecard/>
+		</Basecard>
 
-	</body>
+		<div class="area-charts">
+		<Grafica client:idle>
+		<p> Datos1 <p/>
+		</Grafica>
+		</div>
+	</div>
+</Layout>
 
-</html>
 
 

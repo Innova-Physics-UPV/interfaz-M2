@@ -1,4 +1,4 @@
-<div class="card text-center">
+<div class="card">
   <slot>  </slot>
 </div>
 <style>
@@ -7,13 +7,12 @@
     background: #ffffff;
     /* PRUEBA ESTOS FONDOS: */
     /*background: #1a1a1a; /*(Modo oscuro) */
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); (Gradiente)
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     /*background: rgba(255, 255, 255, 0.5);/* */
     border-radius: 1px;
     border: 5px solid #C01313;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     /* PRUEBA: Cambia el color de la sombra a azul: rgba(0, 100, 255, 0.2) */
-
     padding: 1.5rem;
     height: 100%;
 
