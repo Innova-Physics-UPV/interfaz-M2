@@ -18,7 +18,7 @@
     /* --- 2. DISPOSICIÓN (FLEXBOX) --- */
     display: flex;
 
-    flex-direction: column;
+    flex-direction: row;
     /* PRUEBA: Cambia a 'row' para poner elementos uno al lado del otro */
 
     justify-content: space-between;

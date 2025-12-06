@@ -42,30 +42,33 @@ body {
     display: grid;
     /* 8 columnas iguales */
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: repeat(6,1fr);
     gap: 10px;
     padding: 2rem;
     max-width: 1200px;
     margin: 80px auto;
+    height: 100%;
 }
 
 .area-izq {
-    dispaly: flex;
+    display: flex;
     flex-direction: column;
     gap: 15px;
     flex-grow: 1;
 }
 .area-logs {
     grid-column: 1 / 4 ;
+    grid-row: 4 / -1;
 }
 
 
 .area-orders {
     grid-column: 1 / 4;
+    grid-row: 1 / 4;
 }
 
 .area-charts{
     grid-column: 4 / -1;
-    grid-row: 1 / 3 ;
+    grid-row:1/-1;
 }
 
