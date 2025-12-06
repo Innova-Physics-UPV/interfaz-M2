@@ -50,12 +50,6 @@ body {
     height: 100%;
 }
 
-.area-izq {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    flex-grow: 1;
-}
 .area-logs {
     grid-column: 1 / 4 ;
     grid-row: 4 / -1;
