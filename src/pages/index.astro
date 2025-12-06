@@ -1,6 +1,8 @@
 ---
 import Basecard from '../components/Basecard.svelte';
 import Grafica from '../components/Grafica.svelte';
+import Logs from '../components/Logs.svelte';
+import Ordenes from '../components/Ordenes.svelte';
 import Layout from '../layouts/layout.astro';
 
 ---
@@ -10,15 +12,15 @@ import Layout from '../layouts/layout.astro';
 	<div class="M2grid">
 
 		<div class=area-logs>
-		<Basecard client:idle>
-		<p> LOAD 1 <p/>
-		</Basecard>
+		<Logs client:idle>
+		<p> LOGS <p/>
+		</Logs>
 		</div>
 
 		<div class=area-orders>
-		<Basecard client:idle>
-		<p> LOAD 2 <p/>
-		</Basecard>
+		<Ordenes client:idle>
+		<p> ORDENES <p/>
+		</Ordenes>
 		</div>
 
 		<div class="area-charts">

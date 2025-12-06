@@ -13,9 +13,6 @@ body{
 body {
     background-color: #E0DFDF;
     color: #f9fafb;
-    /* OPCIÓN C: Gradiente*/
-    /*background: linear-gradient(to right, #ec481b, #4a00e0);/*/
-    /* color: white; */
 }
 
 /* --- 4. CLASES DE UTILIDAD --- */
@@ -52,13 +49,13 @@ body {
 
 .area-logs {
     grid-column: 1 / 4 ;
-    grid-row: 4 / -1;
+    grid-row: 1 / 4;
 }
 
 
 .area-orders {
     grid-column: 1 / 4;
-    grid-row: 1 / 4;
+    grid-row: 4 / -1;
 }
 
 .area-charts{
