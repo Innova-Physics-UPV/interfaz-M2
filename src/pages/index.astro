@@ -6,18 +6,34 @@ import Layout from '../layouts/layout.astro';
 ---
 
 <Layout>
-	<div class="M2grid">		
+
+	<div class="M2grid">
+
+		<div class=area-logs>
 		<Basecard client:idle>
-		<p> hola <p/>
+		<p> LOAD 1 <p/>
 		</Basecard>
+		</div>
+
+		<div class=area-orders>
 		<Basecard client:idle>
-		<p>aaaaaaaaacd <p/>
+		<p> LOAD 2 <p/>
 		</Basecard>
+		</div>
 
 		<div class="area-charts">
+		<Basecard client:idle>
 		<Grafica client:idle>
-		<p> Datos1 <p/>
+		<p> GRAF 1 <p/>
 		</Grafica>
+		<Grafica client:idle>
+		<p> GRAF 2 <p/>
+		</Grafica>
+		<Grafica client:idle>
+		<p> GRAF 3 <p/>
+		</Grafica>
+		</Basecard>
+
 		</div>
 	</div>
 </Layout>

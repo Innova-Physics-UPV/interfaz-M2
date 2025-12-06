@@ -11,7 +11,7 @@ body{
     font-family:  'Courier New', Courier, monospace;
 }
 body {
-    background-color: #49259D;
+    background-color: #E0DFDF;
     color: #f9fafb;
     /* OPCIÓN C: Gradiente*/
     /*background: linear-gradient(to right, #ec481b, #4a00e0);/*/
@@ -43,24 +43,29 @@ body {
     /* 8 columnas iguales */
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: auto 1fr auto;
-    gap: 32px;
+    gap: 10px;
     padding: 2rem;
     max-width: 1200px;
     margin: 80px auto;
 }
-/* El balance ocupa las 2 columnas de la primera fila */
+
+.area-izq {
+    dispaly: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+}
 .area-logs {
-    grid-column: 1 ;
+    grid-column: 1 / 4 ;
 }
 
-/* Los otros elementos ocupan 1 celda por defecto */
+
 .area-orders {
-    /* Empieza en la linea 1 y termina en la linea -1 (el final) */
-    grid-column: 1 / -1;
+    grid-column: 1 / 4;
 }
 
 .area-charts{
-    grid-column: 5/-1; 
-    /* grid-row: span 2;    hacerla más alta */
+    grid-column: 4 / -1;
+    grid-row: 1 / 3 ;
 }
 
