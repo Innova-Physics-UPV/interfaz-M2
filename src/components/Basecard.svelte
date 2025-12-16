@@ -3,7 +3,6 @@
 </div>
 <style>
   .card {
-    background-color: #ABABD0;
     border-radius: 2px;
     border: 5px solid #383863;
     box-shadow: 0 4px 20px rgba(0,0,0,0.08);
