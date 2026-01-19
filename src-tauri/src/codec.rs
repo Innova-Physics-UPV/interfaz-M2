@@ -4,6 +4,7 @@ use crate::telemetry::Telemetry;
 pub enum Protocol {
     Postcard,
     Protobuf,
+    Json
 }
 
 pub struct Codec;
@@ -13,29 +14,40 @@ impl Codec {
     pub fn encode(data: &Telemetry, protocol: Protocol) -> Vec<u8> {
         match protocol {
             Protocol::Postcard => {
+                //Impmlementar serialización Postcard
                 postcard::to_stdvec_cobs(data).expect("Error crítico serializando Postcard")
             }
             Protocol::Protobuf => {
-                // Implementar serialización Protobuf + Length Prefix
+                // Implementar serialización Protobuf 
                 todo!("Implementar encode protobuf")
+            }
+            Protocon::Json=>{
+                //Implementar serialización Json
+                 todo!("Implementar encode Json")
             }
         }
     }
     /// Intenta reconstruir el Struct desde Bytes sucios (Lo que hace el PC)
     pub fn decode(data: &[u8], protocol: Protocol) -> Result<Telemetry, String> {
-        match protocol {
             Protocol::Postcard => {
                 // TODO: Implementar deserialización Postcard
                 // Pista: gestionar el COBS decoding primero
+
+
+                
                 todo!("Implementar decode postcard")
             }
             Protocol::Protobuf => {
                 // TODO: Implementar deserialización Protobuf
                 todo!("Implementar decode protobuf")
             }
+            Protocol::Json => {
+                // TODO: Implementar deserialización json
+                todo!("Implementar decode json")
+            }
         }
     }
-}
+
 
 
 pub struct SerialBuffer {

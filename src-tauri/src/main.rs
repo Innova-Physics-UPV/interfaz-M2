@@ -15,6 +15,7 @@ use crate::ingestion::start_ingestion_pipeline;
 
 fn main() {
     println!("Hola, soy Rust y estoy vivo!");
+    //tubería por tx entran los datos y por rx salen
     let (tx, rx) = mpsc::channel::<Vec<u8>>();
 
     thread::spawn(move || {
@@ -24,6 +25,7 @@ fn main() {
 
     tauri::Builder::default()
         .setup(move |app| {
+            //
             //start_ingestion_pipeline(app.handle().clone(), rx);
             Ok(())
         })
