@@ -39,7 +39,6 @@ impl Codec {
                         Ok(t)
                     }
                     Err(e) => {
-                        println!("Error al decodificar: {:?}", e);
                         Err(format!("Error en Postcard: {:?}", e))
                     }
                 }
