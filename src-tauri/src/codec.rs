@@ -14,14 +14,14 @@ impl Codec {
     pub fn encode(data: &Telemetry, protocol: Protocol) -> Vec<u8> {
         match protocol {
             Protocol::Postcard => {
-                //Impmlementar serialización Postcard
+                //Es corta porque la librería hace el trabajo pesado
                 postcard::to_stdvec_cobs(data).expect("Error crítico serializando Postcard")
             }
             Protocol::Protobuf => {
                 // Implementar serialización Protobuf 
                 todo!("Implementar encode protobuf")
             }
-            Protocon::Json=>{
+            Protocol::Json=>{
                 //Implementar serialización Json
                  todo!("Implementar encode Json")
             }
@@ -29,25 +29,29 @@ impl Codec {
     }
     /// Intenta reconstruir el Struct desde Bytes sucios (Lo que hace el PC)
     pub fn decode(data: &[u8], protocol: Protocol) -> Result<Telemetry, String> {
+        match protocol {
             Protocol::Postcard => {
-                // TODO: Implementar deserialización Postcard
-                // Pista: gestionar el COBS decoding primero
-
-
-                
-                todo!("Implementar decode postcard")
+                let mut buffer = data.to_vec();
+                // El '_ indica un tiempo de vida inferido: dejamos que el compilador gestione la
+                // memoria automáticamente ya que Telemetry no mantiene referencias al buffer original.
+                match postcard::from_bytes_cobs::<'_, Telemetry>(&mut buffer) {
+                    Ok(t) => {
+                        Ok(t)
+                    }
+                    Err(e) => {
+                        Err(format!("Error en Postcard: {:?}", e))
+                    }
+                }
             }
             Protocol::Protobuf => {
-                // TODO: Implementar deserialización Protobuf
                 todo!("Implementar decode protobuf")
             }
             Protocol::Json => {
-                // TODO: Implementar deserialización json
                 todo!("Implementar decode json")
             }
         }
     }
-
+}
 
 
 pub struct SerialBuffer {

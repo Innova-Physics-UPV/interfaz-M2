@@ -26,7 +26,7 @@ fn main() {
     tauri::Builder::default()
         .setup(move |app| {
             //
-            //start_ingestion_pipeline(app.handle().clone(), rx);
+            start_ingestion_pipeline(app.handle().clone(), rx);
             Ok(())
         })
         .run(tauri::generate_context!())
