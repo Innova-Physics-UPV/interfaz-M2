@@ -5,6 +5,7 @@ mod telemetry;
 mod codec;
 mod simulator;
 mod ingestion;
+mod proto;
 
 use std::sync::mpsc;
 use std::thread;

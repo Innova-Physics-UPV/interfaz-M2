@@ -20,7 +20,7 @@ impl Simulator {
         state.pressure_mbar = 1013.25; 
         loop {
             self.update_physics(&mut state);
-            let raw_bytes = Codec::encode(&state, Protocol::Postcard);
+            let raw_bytes = Codec::encode(&state, Protocol::Protobuf);
             let noisy_bytes = self.inject_noise(raw_bytes);
 
             // ENVÍO

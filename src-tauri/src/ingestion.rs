@@ -13,9 +13,9 @@ pub fn start_ingestion_pipeline(app_handle: tauri::AppHandle, rx: mpsc::Receiver
             //pasamos los bites raw a un buffer 
             buffer.push_bytes(&raw_chunk);
             // Procesamiento (mientras haya paquetes completos en el buffer)
-            while let Some(frame) = buffer.try_pop_frame() {
+            while let Some(frame) =  buffer.try_pop_frame_protobuf() {
                 //decodificamos cada trozo de datos con el protocolo que toque
-                match Codec::decode(&frame, Protocol::Postcard) {
+                match Codec::decode(&frame, Protocol::Protobuf) {
                     Ok(telemetry) => {
                         // El _  ignora errores si la ventana está cerrada
                         let _ = app_handle.emit("telemetry-update", telemetry);
