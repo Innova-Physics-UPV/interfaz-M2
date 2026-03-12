@@ -1,4 +1,5 @@
 use crate::telemetry::Telemetry;
+use serde_json;
 
 // Enum para elegir estrategia
 pub enum Protocol {
@@ -22,8 +23,7 @@ impl Codec {
                 todo!("Implementar encode protobuf")
             }
             Protocol::Json=>{
-                //Implementar serialización Json
-                 todo!("Implementar encode Json")
+                serde_json::to_vec(data).expect("Error crítico serializando Json")
             }
         }
     }
@@ -47,7 +47,8 @@ impl Codec {
                 todo!("Implementar decode protobuf")
             }
             Protocol::Json => {
-                todo!("Implementar decode json")
+                serde_json::from_slice::<Telemetry>(data)
+                    .map_err(|e| format!("Error en JSON: {:?}", e))
             }
         }
     }
