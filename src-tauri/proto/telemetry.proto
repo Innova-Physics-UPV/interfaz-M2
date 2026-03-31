@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package innova;
+
+enum SystemStatus {
+  IDLE = 0;
+  PUMPING = 1;
+  PREHEAT = 2;
+  HVON = 3;
+  ERROR = 4;
+}
+
+message Telemetry {
+  uint64 timestamp = 1;
+  double pressure_mbar = 2;
+  double voltage_kv = 3;
+  double heater_current_a = 4;
+  bool interlock_engaged = 5;
+  SystemStatus status = 6;
+}

@@ -18,10 +18,39 @@ impl Codec {
                 //Es corta porque la librería hace el trabajo pesado
                 postcard::to_stdvec_cobs(data).expect("Error crítico serializando Postcard")
             }
+
             Protocol::Protobuf => {
-                // Implementar serialización Protobuf 
-                todo!("Implementar encode protobuf")
+                use prost::Message;
+                use crate::proto::innova::Telemetry as PbTelemetry;
+
+
+                let pb = PbTelemetry {
+                    timestamp: data.timestamp,
+                    pressure_mbar: data.pressure_mbar,
+                    voltage_kv: data.voltage_kv,
+                    heater_current_a: data.heater_current_a,
+                    interlock_engaged: data.interlock_engaged,
+                    status: match data.status {
+                        crate::telemetry::SystemStatus::Idle => crate::proto::innova::SystemStatus::Idle as i32,
+                        crate::telemetry::SystemStatus::Pumping => crate::proto::innova::SystemStatus::Pumping as i32,
+                        crate::telemetry::SystemStatus::Preheat => crate::proto::innova::SystemStatus::Preheat as i32,
+                        crate::telemetry::SystemStatus::HvOn => crate::proto::innova::SystemStatus::Hvon as i32,
+                        crate::telemetry::SystemStatus::Error => crate::proto::innova::SystemStatus::Error as i32,
+                    },
+
+                };
+
+                let mut buf = Vec::new();
+                pb.encode(&mut buf).expect("Error serializando Protobuf");
+
+                // Añadimos prefijo de longitud (varint)
+                let mut framed = Vec::new();
+                encode_varint(buf.len() as u64, &mut framed);
+                framed.extend_from_slice(&buf);
+
+                framed
             }
+
             Protocol::Json=>{
                 serde_json::to_vec(data).expect("Error crítico serializando Json")
             }
@@ -44,8 +73,28 @@ impl Codec {
                 }
             }
             Protocol::Protobuf => {
-                todo!("Implementar decode protobuf")
+                use prost::Message;
+                use crate::proto::innova::Telemetry as PbTelemetry;
+
+                let pb = PbTelemetry::decode(data)
+                .map_err(|e| format!("Error decodificando Protobuf: {}", e))?;
+
+                Ok(crate::telemetry::Telemetry {
+                    timestamp: pb.timestamp,
+                    pressure_mbar: pb.pressure_mbar,
+                    voltage_kv: pb.voltage_kv,
+                    heater_current_a: pb.heater_current_a,
+                    interlock_engaged: pb.interlock_engaged,
+                    status: match pb.status {
+                        0 => crate::telemetry::SystemStatus::Idle,
+                        1 => crate::telemetry::SystemStatus::Pumping,
+                        2 => crate::telemetry::SystemStatus::Preheat,
+                        3 => crate::telemetry::SystemStatus::HvOn,
+                        _ => crate::telemetry::SystemStatus::Error,
+                    },
+                })
             }
+
             Protocol::Json => {
                 serde_json::from_slice::<Telemetry>(data)
                     .map_err(|e| format!("Error en JSON: {:?}", e))
@@ -54,6 +103,13 @@ impl Codec {
     }
 }
 
+fn encode_varint(mut v: u64, out: &mut Vec<u8>) {
+    while v >= 0x80 {
+        out.push(((v as u8) & 0x7F) | 0x80);
+        v >>= 7;
+    }
+    out.push(v as u8);
+}
 
 pub struct SerialBuffer {
     data: Vec<u8>,
@@ -82,4 +138,39 @@ impl SerialBuffer {
         // Si no hay 0x00, el paquete está incompleto. Esperamos más datos.
         None
     }
+    pub fn try_pop_frame_protobuf(&mut self) -> Option<Vec<u8>> {
+        if self.data.is_empty() {
+            return None;
+        }
+
+        let mut len: usize = 0;
+        let mut shift = 0usize;
+        let mut header_len = 0usize;
+
+        for &byte in &self.data {
+            let b = byte as usize;
+            len |= (b & 0x7F) << shift;
+            header_len += 1;
+
+            if (b & 0x80) == 0 {
+                break;
+            }
+
+            shift += 7;
+            if shift > 28 {
+                return None;
+            }
+        }
+        if header_len == self.data.len() && (self.data[header_len - 1] & 0x80) != 0 {
+            return None;
+        }
+        if self.data.len() < header_len + len {
+            return None;
+        }
+        self.data.drain(0..header_len);
+
+        let frame: Vec<u8> = self.data.drain(0..len).collect();
+        Some(frame)
+    }
+
 }
