@@ -1,0 +1,8 @@
+[workspace]
+resolver = "2"
+members = [
+    "shared",
+    "core-lib",
+    "tauri-app/src-tauri"
+]
+# We leave src-firmware out of the principal workspace cause it has really different libraries

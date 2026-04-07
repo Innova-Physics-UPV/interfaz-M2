@@ -1,0 +1,8 @@
+[package]
+name = "shared" 
+version = "0.1.0" #This cause we are prototiping
+edition = "2021"    #This cause is the most stable one
+
+[dependencies]
+serde = { version = "1.0", default-features = false, features = ["derive"] }
+# default-features = false so it doesn't use the full esp libraries

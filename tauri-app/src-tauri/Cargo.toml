@@ -1,0 +1,27 @@
+[package]
+name = "tauri-app"
+version = "0.1.0"
+description = "ControlStationM2"
+authors = ["jm"]
+license = ""
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "tauri_app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.1", features = [] }
+
+[dependencies]
+# Conexión con el resto arquitectura
+shared = { path = "../../shared" }
+core-lib = { path = "../../core-lib" }
+
+tauri = { version = "2.9.2", features = [] }
+tauri-plugin-log = "2.0.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["rt-multi-thread"] } # Solo necesario si Tauri lanza spawns propios luego ya se vera

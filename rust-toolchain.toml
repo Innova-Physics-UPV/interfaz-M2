@@ -1,0 +1,3 @@
+[toolchain]
+channel = "stable" #Deberiamos determinar un compilador 
+components = ["rustfmt", "clippy"]
